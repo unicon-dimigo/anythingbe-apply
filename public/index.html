@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-analytics.js"></script>
+    <script>
+      var firebaseConfig = {
+        apiKey: "AIzaSyAEHtOGwMS8TW-J66WcTGxEdXYs9tLQTBc",
+        authDomain: "anythingbe-b7762.firebaseapp.com",
+        databaseURL: "https://anythingbe-b7762.firebaseio.com",
+        projectId: "anythingbe-b7762",
+        storageBucket: "anythingbe-b7762.appspot.com",
+        messagingSenderId: "303973701796",
+        appId: "1:303973701796:web:d833a37596fad8d7c06e31",
+        measurementId: "G-9MNLXZBJDH"
+      };
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+  </body>
+</html>
