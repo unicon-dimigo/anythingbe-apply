@@ -1,3 +1,1 @@
-module.exports = {
-  publicPath: '/apply/'
-}
+module.exports = {}
