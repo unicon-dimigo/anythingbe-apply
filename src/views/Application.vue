@@ -35,7 +35,10 @@ export default {
   methods: {
     async signInGoogle () {
       const googleUser = await this.$gAuth.signIn()
-      console.log(googleUser)
+      const { access_token: accessToken } = googleUser.wc
+      const url = `https://www.googleapis.com/youtube/v3/channels/?mine=true&part=id&access_token=${accessToken}`
+      const result = await fetch(url).body;
+      console.log(result);
     }
   }
 }
