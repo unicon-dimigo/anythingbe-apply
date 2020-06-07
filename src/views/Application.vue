@@ -88,13 +88,10 @@ export default {
 
         <div class="app__field">
           <span class="app__field__label">유튜브 운영 채널</span>
-          <button
-            v-if="form.youtubeId !== ''"
-            @click="signInGoogle"
-          >
+          <button @click="signInGoogle">
             구글로 로그인
           </button>
-          <span v-else>{{ youtubeLink }}</span>
+          <span>{{ youtubeLink }}</span>
         </div>
 
         <div class="app__field">
