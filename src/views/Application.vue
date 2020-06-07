@@ -14,7 +14,7 @@ export default {
         },
         email: null,
         phone: null,
-        youtubeId: null,
+        youtubeId: '',
         category: {
           game: false,
           eat: false,
@@ -89,7 +89,7 @@ export default {
         <div class="app__field">
           <span class="app__field__label">유튜브 운영 채널</span>
           <button
-            v-if="youtubeId != null"
+            v-if="youtubeId !== ''"
             @click="signInGoogle"
           >
             구글로 로그인
