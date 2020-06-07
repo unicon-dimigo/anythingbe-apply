@@ -40,12 +40,12 @@ export default {
       const { access_token: accessToken } = googleUser.wc
       const url = `https://www.googleapis.com/youtube/v3/channels/?mine=true&part=id&access_token=${accessToken}`
       const { data } = await axios.get(url)
-      this.youtubeId = data.items[0].id
+      this.form.youtubeId = data.items[0].id
     }
   },
   computed: {
     youtubeLink () {
-      return `https://www.youtube.com/channel/${this.youtubeId}`
+      return `https://www.youtube.com/channel/${this.form.youtubeId}`
     }
   }
 }
