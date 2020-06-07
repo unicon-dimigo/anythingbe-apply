@@ -39,8 +39,13 @@ export default {
       const googleUser = await this.$gAuth.signIn()
       const { access_token: accessToken } = googleUser.wc
       const url = `https://www.googleapis.com/youtube/v3/channels/?mine=true&part=id&access_token=${accessToken}`
-      const { body: result } = await axios.get(url)
-      console.log(result)
+      const { data } = await axios.get(url)
+      this.youtubeId = data.items[0].id
+    }
+  },
+  computed: {
+    youtubeLink () {
+      return `https://www.youtube.com/channel/${this.youtubeId}`
     }
   }
 }
@@ -83,7 +88,13 @@ export default {
 
         <div class="app__field">
           <span class="app__field__label">유튜브 운영 채널</span>
-          <button @click="signInGoogle">asdf</button>
+          <button
+            v-if="youtubeId"
+            @click="signInGoogle"
+          >
+            구글로 로그인
+          </button>
+          <span v-else>{{ youtubeLink }}</span>
         </div>
 
         <div class="app__field">
