@@ -1,4 +1,6 @@
 <script>
+import axios from 'axios'
+
 export default {
   name: 'app',
   data () {
@@ -37,7 +39,7 @@ export default {
       const googleUser = await this.$gAuth.signIn()
       const { access_token: accessToken } = googleUser.wc
       const url = `https://www.googleapis.com/youtube/v3/channels/?mine=true&part=id&access_token=${accessToken}`
-      const result = await fetch(url)
+      const { body: result } = await axios.get(url)
       console.log(result)
     }
   }
