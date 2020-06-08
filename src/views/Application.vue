@@ -1,5 +1,17 @@
 <script>
 import axios from 'axios'
+import * as firebase from 'firebase'
+const app = firebase.initializeApp({
+  apiKey: 'AIzaSyAEHtOGwMS8TW-J66WcTGxEdXYs9tLQTBc',
+  authDomain: 'anythingbe-b7762.firebaseapp.com',
+  databaseURL: 'https://anythingbe-b7762.firebaseio.com',
+  projectId: 'anythingbe-b7762',
+  storageBucket: 'anythingbe-b7762.appspot.com',
+  messagingSenderId: '303973701796',
+  appId: '1:303973701796:web:d833a37596fad8d7c06e31',
+  measurementId: 'G-9MNLXZBJDH'
+})
+const database = app.database()
 
 export default {
   name: 'app',
@@ -7,11 +19,7 @@ export default {
     return {
       form: {
         name: '',
-        birth: {
-          year: null,
-          month: null,
-          day: null
-        },
+        birth: null,
         email: null,
         phone: null,
         youtubeId: '',
@@ -25,11 +33,12 @@ export default {
           etc: null
         },
         platform: {
-          twitch: null,
-          africa: null,
-          facebook: null,
-          instagram: null,
-          tiktok: null
+          twitch: false,
+          africa: false,
+          facebook: false,
+          instagram: false,
+          tiktok: false,
+          etc: false
         }
       }
     }
@@ -41,6 +50,30 @@ export default {
       const url = `https://www.googleapis.com/youtube/v3/channels/?mine=true&part=id&access_token=${accessToken}`
       const { data } = await axios.get(url)
       this.form.youtubeId = data.items[0].id
+    },
+    toggle (platform) {
+      if (this.form.platform[platform] === false) {
+        this.form.platform[platform] = ''
+      } else {
+        this.form.platform[platform] = false
+      }
+    },
+    koreanCategory (category) {
+      return {
+        game: '게임',
+        eat: '먹방',
+        entertain: '예능',
+        life: '일상',
+        beauty: '뷰티',
+        hobby: '취미',
+        etc: '기타'
+      }[category]
+    },
+    async submit () {
+      database
+        .ref(`forms/${this.form.name}-${this.form.youtubeId}`)
+        .set(this.form)
+      alert('접수가 정상적으로 완료되었습니다.')
     }
   },
   computed: {
@@ -60,6 +93,7 @@ export default {
         <div class="app__field">
           <span class="app__field__label">이름</span>
           <input
+            v-model="form.name"
             class="app__field__input"
             placeholder="실명을 작성해 주세요."
           />
@@ -67,12 +101,18 @@ export default {
 
         <div class="app__field">
           <span class="app__field__label">생년원일</span>
-          <input type="date">
+          <input
+            v-model="form.birth"
+            class="app__field__input"
+            type="date"
+          >
         </div>
 
         <div class="app__field">
           <span class="app__field__label">E-mail</span>
           <input
+            type="email"
+            v-model="form.email"
             class="app__field__input"
             placeholder="이메일 주소를 작성해 주세요."
           />
@@ -81,6 +121,7 @@ export default {
         <div class="app__field">
           <span class="app__field__label">전화번호</span>
           <input
+            v-model="form.phone"
             class="app__field__input"
             placeholder="전화번호를 작성해 주세요."
           />
@@ -96,11 +137,51 @@ export default {
             <img class="google__logo" src="../assets/google.png">
             Sign in with Google
           </button>
-          <span v-else>{{ youtubeLink }}</span>
+          <span v-else>
+            <a :href="youtubeLink">
+              YouTube 채널 인증 완료
+            </a>
+          </span>
         </div>
 
         <div class="app__field">
           <span class="app__field__label">YouTube 외에 추가로 운영 중인 플랫폼</span>
+          <div class="platform__list">
+            <div
+              class="platform__item"
+              :key="`p-${index}`"
+              v-for="(platform, index) in Object.keys(form.platform)"
+            >
+              <input
+                type="checkbox"
+                @click="toggle(platform)"
+              >
+              <span>{{ platform }}</span>
+              <input
+                v-show="form.platform[platform] !== false"
+                v-model="form.platform[platform]"
+                placeholder="운영 중인 플랫폼 URL을 작성해 주세요"
+                style="margin-left: 15px; width: 230px"
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="app__field">
+          <span class="app__field__label">채널 카테고리</span>
+          <div class="platform__list" style="display: flex;">
+            <div
+              class="platform__item"
+              :key="`c-${index}`"
+              v-for="(category, index) in Object.keys(form.category)"
+            >
+              <input
+                v-model="form.category[category]"
+                type="checkbox"
+              >
+              <span style="margin: 0 5px;">{{ koreanCategory(category) }}</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -109,7 +190,7 @@ export default {
           <span class="app__field__label">자기소개</span>
           <textarea
             class="app__field__input app__field__input-tf"
-            placeholder="anythingBE 가입을 위한 자기소개서를 자유롭게 입력해 주세요."
+            placeholder="anythingBE 가입을 위한 자기소개서를 자유롭게 입력해 주세요. (500자 내외)"
           />
         </div>
 
@@ -118,24 +199,28 @@ export default {
           <div class="app__field__privacy">
             anythingBE는 크리에이터 지원시 아래와 같이 개인정보를 수집 및 이용하고 있습니다. 내용을 자세히 읽으신 후 동의 여부를 결정하여 주십시오. 이용자는 개인정보 수집 및 이용에 대한 동의를 거부할 권리가 있습니다. 다만 동의를 거부하는 경우 크리에이터 지원 신청 서비스가 제한될 수 있습니다.
             <br><br>
-            1. 수집하는 개인정보
-            · 필수항목 : 이름, 성별, 생년월일, 전화번호(휴대전화번호), 이메일 주소, 유튜브 채널 주소
+            1. 수집하는 개인정보<br>
+            · 필수항목 : 이름, 성별, 생년월일, 전화번호(휴대전화번호), 이메일 주소, 유튜브 채널 주소<br>
             · 선택항목 : 유튜브 외 추가 운영 중인 플랫폼 관련 정보
             <br><br>
-            2. 개인정보의 수집 및 이용 목적
+            2. 개인정보의 수집 및 이용 목적<br>
             anythingBE는 크리에이터로 지원하는 지원자의 지원 의사를 확인하고 본인 확인을 하기 위해 개인정보를 수집 및 이용합니다. 크리에이터 중복 지원을 방지하고 서비스를 부정 이용하는 것을 방지하기 위해 개인정보를 수집 및 이용하며, 크리에이터 지원 심사 및 지원 심사 결과 안내, 기타 각종 안내사항이나 고지사항을 전달하기 위해 개인정보를 수집 및 이용합니다. 또한 추후 발생할 수 있는 분쟁 등을 위하여 개인정보를 보유합니다.
             <br><br>
-            3. 개인정보 보유기간
+            3. 개인정보 보유기간<br>
             anythingBE는 지원자가 개인정보 수집 및 이용에 동의한 날로부터 1년간 개인정보를 보유합니다. 위 1년의 기간은 크리에이터 지원자의 지원 의사 확인 및 심사, 모니터링을 위한 기간입니다. 또한 회사는 개인정보보호법령 등에 따라 특별히 보유하여야 할 필요가 있는 경우에는 법령상 기간을 준수하여 보유하고 있습니다.
             <br><br>
-            4. 개인정보의 파기
+            4. 개인정보의 파기<br>
             회사는 지원자가 개인정보 수집 및 이용에 동의한 날로부터 1년간 개인정보를 보유합니다. 위 1년의 기간은 크리에이터 지원자의 지원 의사 확인 및 심사, 모니터링을 위한 기간입니다. 또한 회사는 개인정보보호법령 등에 따라 특별히 보유하여야 할 필요가 있는 경우에는 법령상 기간을 준수하여 보유하고 있습니다.
           </div>
         </div>
 
-        <button class="app__field__button">크리에이터 지원하기</button>
+        <button
+          @click="submit"
+          class="app__field__button"
+        >
+          크리에이터 지원하기
+        </button>
       </div>
-      <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
     </div>
   </div>
 </template>
@@ -232,13 +317,14 @@ export default {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     gap: 50px 40px;
+    margin-bottom: 20px;
   }
 
   &-big {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 0.6fr 1fr;
     gap: 50px 0px;
   }
 }
