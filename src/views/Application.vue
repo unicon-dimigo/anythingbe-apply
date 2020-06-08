@@ -88,10 +88,11 @@ export default {
 
         <div class="app__field">
           <span class="app__field__label">유튜브 운영 채널</span>
-          <button @click="signInGoogle">
-            구글로 로그인
+          <button v-if="form.youtubeId === ''" class="google__button">
+            <img class="google__logo" src="../assets/google.png">
+            Sign in with Google
           </button>
-          <span>{{ youtubeLink }}</span>
+          <span v-else>{{ youtubeLink }}</span>
         </div>
 
         <div class="app__field">
@@ -235,6 +236,29 @@ export default {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
     gap: 50px 0px;
+  }
+}
+
+.google {
+  &__button {
+    border: 0;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1rem;
+    box-shadow:
+      0 10px 16px 0 rgba(0,0,0,0.2),
+      0 6px 20px 0 rgba(0,0,0,0.19) !important;
+    padding: 10px;
+    margin-bottom: 30px;
+    cursor: pointer;
+    outline: none;
+  }
+
+  &__logo {
+    height: 1.5rem;
+    margin-right: 5px;
   }
 }
 </style>
