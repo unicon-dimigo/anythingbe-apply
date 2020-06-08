@@ -88,7 +88,11 @@ export default {
 
         <div class="app__field">
           <span class="app__field__label">유튜브 운영 채널</span>
-          <button v-if="form.youtubeId === ''" class="google__button">
+          <button
+            v-if="form.youtubeId === ''"
+            class="google__button"
+            @click="signInGoogle"
+          >
             <img class="google__logo" src="../assets/google.png">
             Sign in with Google
           </button>
