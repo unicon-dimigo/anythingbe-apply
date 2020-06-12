@@ -70,7 +70,7 @@ export default {
       }[category]
     },
     async submit () {
-      database
+      await database
         .ref(`forms/${this.form.name}-${this.form.youtubeId}`)
         .set(this.form)
       alert('접수가 정상적으로 완료되었습니다.')
