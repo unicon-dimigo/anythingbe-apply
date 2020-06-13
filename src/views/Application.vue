@@ -177,6 +177,8 @@ export default {
           </span>
         </div>
 
+        <div class="app__field" />
+
         <div class="app__field">
           <span class="app__field__label">YouTube 외에 추가로 운영 중인 플랫폼</span>
           <div class="platform__list">
@@ -281,6 +283,29 @@ export default {
         >
           크리에이터 지원하기
         </button>
+      </div>
+    </div>
+
+    <div style="margin: 50px 0; display: flex;">
+      <div style="width: 400px; display: flex;">
+        <top-button
+          @click="openLink('https://www.notion.so/anythingbe-031b835a02f34500a3c033c9b4f9808f')"
+        >
+          ANYTHING BE?
+        </top-button>
+        <top-button
+          @click="openLink('https://www.notion.so/anythingBE-Q-A-5769d50ae405452799e07a0f1400ce10')"
+        >
+          QnA
+        </top-button>
+      </div>
+
+      <div style="margin-left: auto; display: flex;">
+        <div style="display: flex; flex-direction: column; margin-right: 10px; color: gray;">
+          <span>Business contact</span>
+          <span>partnership.anythingbe@gmail.com</span>
+        </div>
+        <img style="height: 50px;" src="../assets/flogo.png">
       </div>
     </div>
   </div>

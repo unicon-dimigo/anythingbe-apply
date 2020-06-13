@@ -3,7 +3,7 @@
     class="button"
     @click="onClick"
   >
-    <slot />
+    <span style="margin-left: auto;"><slot /></span>
     <div class="button__arrow">></div>
   </div>
 </template>
@@ -25,6 +25,7 @@ export default {
   display: flex;
   align-items: center;
   font-size: 1.2rem;
+  width: 180px;
   padding: 4px 7px;
   padding-right: 0;
   box-shadow:
@@ -45,6 +46,7 @@ export default {
     color: white;
     background: rgb(255,41,108);
     background: linear-gradient(90deg, rgba(255,41,108,1) 0%, rgba(255,159,43,1) 100%);
+    margin-left: auto;
   }
 }
 </style>
