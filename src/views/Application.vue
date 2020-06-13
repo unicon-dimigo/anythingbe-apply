@@ -59,8 +59,8 @@ export default {
       const { data } = await axios.get(url)
       this.form.youtubeId = data.items[0].id
       this.channel.title = data.items[0].snippet.title
-      this.channel.thumbnail = data.itmes[0].snippet.thumbnails.default.url
-      this.channel.subscribers = data.itmes[0].statistics.subscriberCount
+      this.channel.thumbnail = data.items[0].snippet.thumbnails.default.url
+      this.channel.subscribers = data.items[0].statistics.subscriberCount
     },
     toggle (platform) {
       if (this.form.platform[platform] === false) {
