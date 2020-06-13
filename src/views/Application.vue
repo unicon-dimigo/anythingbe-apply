@@ -49,8 +49,9 @@ export default {
     async signInGoogle () {
       const googleUser = await this.$gAuth.signIn()
       const { access_token: accessToken } = googleUser.wc
-      const url = `https://www.googleapis.com/youtube/v3/channels/?mine=true&part=id&access_token=${accessToken}`
+      const url = `https://www.googleapis.com/youtube/v3/channels/?mine=true&part=id,snippet&access_token=${accessToken}`
       const { data } = await axios.get(url)
+      console.log(data)
       this.form.youtubeId = data.items[0].id
     },
     toggle (platform) {
