@@ -45,9 +45,9 @@ export default {
         }
       },
       channel: {
-        title: '엄서훈',
-        subscribers: 21,
-        thumbnail: 'https://yt3.ggpht.com/a/AATXAJzEnCngHh0SGqNAH2Jku16LXg2eODSjPcOLBw=s288-c-k-c0xffffffff-no-rj-mo'
+        title: null,
+        subscribers: null,
+        thumbnail: null
       }
     }
   },
@@ -145,7 +145,7 @@ export default {
         <div class="app__field">
           <span class="app__field__label">유튜브 운영 채널</span>
           <button
-            v-if="form.youtubeId === 'a'"
+            v-if="form.youtubeId === ''"
             class="google__button"
             @click="signInGoogle"
           >
@@ -363,6 +363,7 @@ export default {
     margin-bottom: 30px;
     cursor: pointer;
     outline: none;
+    border-radius: 20px;
   }
 
   &__logo {
