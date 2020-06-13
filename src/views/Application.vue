@@ -85,6 +85,9 @@ export default {
         .ref(`forms/${this.form.name}-${this.form.youtubeId}`)
         .set(this.form)
       alert('접수가 정상적으로 완료되었습니다.')
+    },
+    openLink (link) {
+      window.open(link)
     }
   },
   computed: {
@@ -100,8 +103,16 @@ export default {
     <img class="app__title" src="../assets/Title.svg">
     <img class="app__logo" src="../assets/Logo.svg">
     <div class="app__button-wrapper">
-      <top-button>ANYTHING BE?</top-button>
-      <top-button>QnA</top-button>
+      <top-button
+        @click="openLink('https://www.notion.so/anythingbe-031b835a02f34500a3c033c9b4f9808f')"
+      >
+        ANYTHING BE?
+      </top-button>
+      <top-button
+        @click="openLink('https://www.notion.so/anythingBE-Q-A-5769d50ae405452799e07a0f1400ce10')"
+      >
+        QnA
+      </top-button>
     </div>
     <div class="form">
       <div class="form-small">
@@ -194,17 +205,33 @@ export default {
 
         <div class="app__field">
           <span class="app__field__label">채널 카테고리</span>
-          <div class="platform__list" style="display: flex;">
-            <div
-              class="platform__item"
-              :key="`c-${index}`"
-              v-for="(category, index) in Object.keys(form.category)"
-            >
-              <input
-                v-model="form.category[category]"
-                type="checkbox"
+          <div class="platform__list">
+            <div style="display: flex;">
+              <div
+                class="platform__item"
+                :key="`c-${index}`"
+                v-for="(category, index) in Object.keys(form.category).splice(0, 4)"
               >
-              <span style="margin: 0 5px;">{{ koreanCategory(category) }}</span>
+                <input
+                  v-model="form.category[category]"
+                  type="checkbox"
+                >
+                <span style="margin: 0 5px;">{{ koreanCategory(category) }}</span>
+              </div>
+            </div>
+
+            <div style="display: flex;">
+              <div
+                class="platform__item"
+                :key="`c-${index}`"
+                v-for="(category, index) in Object.keys(form.category).splice(4, 2)"
+              >
+                <input
+                  v-model="form.category[category]"
+                  type="checkbox"
+                >
+                <span style="margin: 0 5px;">{{ koreanCategory(category) }}</span>
+              </div>
             </div>
           </div>
         </div>
