@@ -2,6 +2,7 @@
 import axios from 'axios'
 import * as firebase from 'firebase'
 import TopButton from '../components/TopButton.vue'
+import YoutubeProfile from '../components/YoutubeProfile.vue'
 const app = firebase.initializeApp({
   apiKey: 'AIzaSyAEHtOGwMS8TW-J66WcTGxEdXYs9tLQTBc',
   authDomain: 'anythingbe-b7762.firebaseapp.com',
@@ -16,7 +17,7 @@ const database = app.database()
 
 export default {
   name: 'app',
-  components: { TopButton },
+  components: { TopButton, YoutubeProfile },
   data () {
     return {
       form: {
@@ -42,6 +43,11 @@ export default {
           tiktok: false,
           etc: false
         }
+      },
+      channel: {
+        title: '엄서훈',
+        subscribers: 21,
+        thumbnail: 'https://yt3.ggpht.com/a/AATXAJzEnCngHh0SGqNAH2Jku16LXg2eODSjPcOLBw=s288-c-k-c0xffffffff-no-rj-mo'
       }
     }
   },
@@ -49,10 +55,12 @@ export default {
     async signInGoogle () {
       const googleUser = await this.$gAuth.signIn()
       const { access_token: accessToken } = googleUser.wc
-      const url = `https://www.googleapis.com/youtube/v3/channels/?mine=true&part=id,snippet&access_token=${accessToken}`
+      const url = `https://www.googleapis.com/youtube/v3/channels/?mine=true&part=id,snippet,statistics&access_token=${accessToken}`
       const { data } = await axios.get(url)
-      console.log(data)
       this.form.youtubeId = data.items[0].id
+      this.channel.title = data.items[0].snippet.title
+      this.channel.thumbnail = data.itmes[0].snippet.thumbnails.default.url
+      this.channel.subscribers = data.itmes[0].statistics.subscriberCount
     },
     toggle (platform) {
       if (this.form.platform[platform] === false) {
@@ -137,7 +145,7 @@ export default {
         <div class="app__field">
           <span class="app__field__label">유튜브 운영 채널</span>
           <button
-            v-if="form.youtubeId === ''"
+            v-if="form.youtubeId === 'a'"
             class="google__button"
             @click="signInGoogle"
           >
@@ -145,9 +153,7 @@ export default {
             Sign in with Google
           </button>
           <span v-else>
-            <a :href="youtubeLink">
-              YouTube 채널 인증 완료
-            </a>
+            <youtube-profile :profile="channel" />
           </span>
         </div>
 

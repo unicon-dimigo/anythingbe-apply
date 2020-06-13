@@ -24,7 +24,7 @@ export default {
   height: 2rem;
   display: flex;
   align-items: center;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   padding: 4px 7px;
   padding-right: 0;
   box-shadow:
