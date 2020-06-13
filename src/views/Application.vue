@@ -48,7 +48,8 @@ export default {
         title: null,
         subscribers: null,
         thumbnail: null
-      }
+      },
+      etcTemp: false
     }
   },
   methods: {
@@ -197,10 +198,6 @@ export default {
               >
             </div>
           </div>
-
-          <span class="app__field__helper">
-            운영하고 있는 채널의<br>주요 카테고리를 선택해 주세요. (중복 허용)
-          </span>
         </div>
 
         <div class="app__field">
@@ -232,8 +229,21 @@ export default {
                 >
                 <span style="margin: 0 5px;">{{ koreanCategory(category) }}</span>
               </div>
+              <div class="platform__item">
+                <input
+                  v-model="etcTemp"
+                  type="checkbox"
+                  v-show="!etcTemp"
+                >
+                <span style="margin: 0 5px;">기타</span>
+                <input v-show="etcTemp" v-model="form.category.etc" style="width: 70px;">
+              </div>
             </div>
           </div>
+
+          <span class="app__field__helper">
+            운영하고 있는 채널의<br>주요 카테고리를 선택해 주세요. (중복 허용)
+          </span>
         </div>
       </div>
 
