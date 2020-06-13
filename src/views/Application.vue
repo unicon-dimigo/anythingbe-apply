@@ -240,10 +240,6 @@ export default {
               </div>
             </div>
           </div>
-
-          <span class="app__field__helper">
-            운영하고 있는 채널의<br>주요 카테고리를 선택해 주세요. (중복 허용)
-          </span>
         </div>
       </div>
 
@@ -256,7 +252,7 @@ export default {
           />
         </div>
 
-        <div class="app__field">
+        <div class="app__field" style="margin-bottom: 10px;">
           <span class="app__field__label">개인정보 수집 및 이용약관 동의</span>
           <div class="app__field__privacy">
             anythingBE는 크리에이터 지원시 아래와 같이 개인정보를 수집 및 이용하고 있습니다. 내용을 자세히 읽으신 후 동의 여부를 결정하여 주십시오. 이용자는 개인정보 수집 및 이용에 대한 동의를 거부할 권리가 있습니다. 다만 동의를 거부하는 경우 크리에이터 지원 신청 서비스가 제한될 수 있습니다.
@@ -274,6 +270,9 @@ export default {
             4. 개인정보의 파기<br>
             회사는 지원자가 개인정보 수집 및 이용에 동의한 날로부터 1년간 개인정보를 보유합니다. 위 1년의 기간은 크리에이터 지원자의 지원 의사 확인 및 심사, 모니터링을 위한 기간입니다. 또한 회사는 개인정보보호법령 등에 따라 특별히 보유하여야 할 필요가 있는 경우에는 법령상 기간을 준수하여 보유하고 있습니다.
           </div>
+          <span class="app__field__helper" style="margin-left: auto; margin-top: 10px; float: right; margin-right: 0;">
+            크리에이터 지원 버튼을 누를 경우 상기 개인정보 수집 약관에 동의한 것으로 간주합니다.
+          </span>
         </div>
 
         <button
@@ -282,10 +281,6 @@ export default {
         >
           크리에이터 지원하기
         </button>
-
-        <span class="app__field__helper">
-          크리에이터 지원 버튼을 누를 경우 상기 개인정보 수집 약관에 동의한 것으로 간주합니다.
-        </span>
       </div>
     </div>
   </div>
