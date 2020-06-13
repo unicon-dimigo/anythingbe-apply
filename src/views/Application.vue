@@ -140,18 +140,26 @@ export default {
             class="app__field__input"
             placeholder="전화번호를 작성해 주세요."
           />
+          <span class="app__field__helper">
+            * 연락 가능한 전화번호 또는 핸드폰 번호를 작성해 주세요.
+          </span>
         </div>
 
         <div class="app__field">
           <span class="app__field__label">유튜브 운영 채널</span>
-          <button
-            v-if="form.youtubeId === ''"
-            class="google__button"
-            @click="signInGoogle"
-          >
-            <img class="google__logo" src="../assets/google.png">
-            Sign in with Google
-          </button>
+          <div v-if="form.youtubeId === ''">
+            <button
+              class="google__button"
+              @click="signInGoogle"
+            >
+              <img class="google__logo" src="../assets/google.png">
+              Sign in with Google
+            </button>
+            <span class="app__field__helper">
+              * 구글 계정을 통하여 채널 확인이 이루어집니다.<br>
+              해당 정보는 본인 채널 여부 및 기타 지표 확인을 위하여 사용되며, 자동 가입 등의 절차로 연결되지 않습니다.
+            </span>
+          </div>
           <span v-else>
             <youtube-profile :profile="channel" />
           </span>
@@ -178,6 +186,10 @@ export default {
               >
             </div>
           </div>
+
+          <span class="app__field__helper">
+            운영하고 있는 채널의<br>주요 카테고리를 선택해 주세요. (중복 허용)
+          </span>
         </div>
 
         <div class="app__field">
@@ -233,6 +245,10 @@ export default {
         >
           크리에이터 지원하기
         </button>
+
+        <span class="app__field__helper">
+          크리에이터 지원 버튼을 누를 경우 상기 개인정보 수집 약관에 동의한 것으로 간주합니다.
+        </span>
       </div>
     </div>
   </div>
@@ -256,6 +272,13 @@ export default {
 
   &__field {
     width: 100%;
+
+    &__helper {
+      color: #757575;
+      font-size: 0.7rem;
+      display: block;
+      margin-top: 5px;
+    }
 
     &__label {
       background: rgb(255,41,108);
