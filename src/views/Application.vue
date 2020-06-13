@@ -1,6 +1,7 @@
 <script>
 import axios from 'axios'
 import * as firebase from 'firebase'
+import TopButton from '../components/TopButton.vue'
 const app = firebase.initializeApp({
   apiKey: 'AIzaSyAEHtOGwMS8TW-J66WcTGxEdXYs9tLQTBc',
   authDomain: 'anythingbe-b7762.firebaseapp.com',
@@ -15,6 +16,7 @@ const database = app.database()
 
 export default {
   name: 'app',
+  components: { TopButton },
   data () {
     return {
       form: {
@@ -88,6 +90,10 @@ export default {
   <div class="container">
     <img class="app__title" src="../assets/Title.svg">
     <img class="app__logo" src="../assets/Logo.svg">
+    <div class="app__button-wrapper">
+      <top-button>ANYTHING BE?</top-button>
+      <top-button>QnA</top-button>
+    </div>
     <div class="form">
       <div class="form-small">
         <div class="app__field">
@@ -295,6 +301,12 @@ export default {
     &__helper {
       font-size: 0.8rem;
     }
+  }
+
+  &__button-wrapper {
+    width: fit-content;
+    display: flex;
+    justify-content: space-between;
   }
 }
 

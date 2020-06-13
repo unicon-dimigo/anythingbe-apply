@@ -5,6 +5,9 @@ export default {
     openChatting () {
       window.open('http://pf.kakao.com/_mEixcxb/chat')
     }
+  },
+  created () {
+    document.title = 'anythingBE - 지원하기'
   }
 }
 </script>

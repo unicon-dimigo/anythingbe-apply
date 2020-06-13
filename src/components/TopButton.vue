@@ -1,11 +1,11 @@
 <template>
-  <button
+  <div
     class="button"
     @click="onClick"
   >
     <slot />
     <div class="button__arrow">></div>
-  </button>
+  </div>
 </template>
 
 <script>
@@ -21,9 +21,28 @@ export default {
 
 <style lang="scss" scoped>
 .button {
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  font-size: 1.3rem;
+  padding: 4px 7px;
+  padding-right: 0;
+  box-shadow:
+    0 10px 16px 0 rgba(0,0,0,0.2),
+    0 6px 20px 0 rgba(0,0,0,0.19);
+  margin-right: 30px;
+  background-color: #ffffff;
+  cursor: pointer;
+
   &__arrow {
-    height: 100%;
-    width: 7px;
+    margin-left: 5px;
+    height: 2rem;
+    font-size: 1.2rem;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
     background: rgb(255,41,108);
     background: linear-gradient(90deg, rgba(255,41,108,1) 0%, rgba(255,159,43,1) 100%);
   }
