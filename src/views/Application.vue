@@ -418,7 +418,7 @@ export default {
 
 .app {
   &__title {
-    height: 24rem;
+    height: 23.7rem;
     margin-left: -60px;
   }
 
