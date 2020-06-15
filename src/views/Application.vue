@@ -124,38 +124,40 @@ export default {
       <div class="form-small">
         <div class="app__field">
           <span class="app__field__label">이름</span>
-          <input
-            v-model="form.name"
-            class="app__field__input"
-            placeholder="실명을 작성해 주세요."
-            style="width: 50%;"
-          />
+          <div style="display: flex; align-items: center;">
+            <input
+              v-model="form.name"
+              class="app__field__input"
+              placeholder="실명을 작성해 주세요."
+              style="width: 50%;"
+            />
 
-          <label @click="form.gender = '남자'">남</label>
-          <div
-            @click="form.gender = '남자'"
-            :style="{
-              display: 'inline-block',
-              margin: '0 5px',
-              width: '15px',
-              height: '15px',
-              background: form.gender === '여자' ? 'white' : 'linear-gradient(90deg, rgba(255,41,108,1) 0%, rgba(255,159,43,1) 100%)',
-              border: '1px solid #bbbbbb'
-            }"
-          />
+            <label @click="form.gender = '남자'" style="margin-left: 5px;">남</label>
+            <div
+              @click="form.gender = '남자'"
+              :style="{
+                display: 'inline-block',
+                margin: '0 5px',
+                width: '15px',
+                height: '15px',
+                background: form.gender === '여자' ? 'white' : 'linear-gradient(90deg, rgba(255,41,108,1) 0%, rgba(255,159,43,1) 100%)',
+                border: '1px solid #bbbbbb'
+              }"
+            />
 
-          <label @click="form.gender = '여자'">여</label>
-          <div
-            @click="form.gender = '여자'"
-            :style="{
-              display: 'inline-block',
-              margin: '0 5px',
-              width: '15px',
-              height: '15px',
-              background: form.gender === '남자' ? 'white' : 'linear-gradient(90deg, rgba(255,41,108,1) 0%, rgba(255,159,43,1) 100%)',
-              border: '1px solid #bbbbbb'
-            }"
-          />
+            <label @click="form.gender = '여자'">여</label>
+            <div
+              @click="form.gender = '여자'"
+              :style="{
+                display: 'inline-block',
+                margin: '0 5px',
+                width: '15px',
+                height: '15px',
+                background: form.gender === '남자' ? 'white' : 'linear-gradient(90deg, rgba(255,41,108,1) 0%, rgba(255,159,43,1) 100%)',
+                border: '1px solid #bbbbbb'
+              }"
+            />
+          </div>
         </div>
 
         <div class="app__field">
@@ -209,7 +211,6 @@ export default {
             class="app__field__input"
             placeholder="전화번호를 작성해 주세요."
           />
-          f
         </div>
 
         <div class="app__field">
@@ -243,7 +244,13 @@ export default {
                 :key="`c-${index}`"
                 v-for="(category, index) in Object.keys(form.category).splice(0, 4)"
               >
-                <span style="margin: 0 5px;">{{ koreanCategory(category) }}</span>
+                <span
+                  :style="{
+                    margin: index === 0 ? '0' : '0 5px'
+                  }"
+                >
+                  {{ koreanCategory(category) }}
+                </span>
                 <div
                   @click="form.category[category] = !form.category[category]"
                   :style="{
@@ -264,7 +271,13 @@ export default {
                 :key="`c-${index}`"
                 v-for="(category, index) in Object.keys(form.category).splice(4, 2)"
               >
-                <span style="margin: 0 5px;">{{ koreanCategory(category) }}</span>
+                <span
+                  :style="{
+                    margin: index === 0 ? '0' : '0 5px'
+                  }"
+                >
+                  {{ koreanCategory(category) }}
+                </span>
                 <div
                   @click="form.category[category] = !form.category[category]"
                   :style="{
@@ -278,13 +291,14 @@ export default {
                 />
               </div>
               <div class="platform__item">
-                <span style="margin: 0 5px;">기타</span>
+                <span style="margin: 0 7.5px;">기타</span>
                 <div
                   v-show="!etcTemp"
                   @click="etcTemp = !etcTemp"
                   :style="{
                     display: 'inline-block',
                     'margin-right': '4px',
+                    'margin-left': '-0.5px',
                     width: '15px',
                     height: '15px',
                     background: etcTemp === false ? 'white' : 'linear-gradient(90deg, rgba(255,41,108,1) 0%, rgba(255,159,43,1) 100%)',
@@ -302,13 +316,15 @@ export default {
         </div>
 
         <div class="app__field">
-          <span class="app__field__label">YouTube 외에 추가로 운영 중인 플랫폼</span>
+          <span class="app__field__label">YouTube 외 추가로 운영 중인 플랫폼</span>
           <div class="platform__list">
             <div
               class="platform__item"
               :key="`p-${index}`"
               v-for="(platform, index) in Object.keys(form.platform)"
+              style="display: flex; align-items: center; margin-top: 3px;"
             >
+              <span style="min-width: 100px;">{{ platform === 'etc' ? '기타' : platform }}</span>
               <div
                 @click="toggle(platform)"
                 :style="{
@@ -320,7 +336,6 @@ export default {
                   border: '1px solid #bbbbbb'
                 }"
               />
-              <span>{{ platform }}</span>
               <input
                 v-show="form.platform[platform] !== false"
                 v-model="form.platform[platform]"
@@ -359,7 +374,7 @@ export default {
             4. 개인정보의 파기<br>
             회사는 지원자가 개인정보 수집 및 이용에 동의한 날로부터 1년간 개인정보를 보유합니다. 위 1년의 기간은 크리에이터 지원자의 지원 의사 확인 및 심사, 모니터링을 위한 기간입니다. 또한 회사는 개인정보보호법령 등에 따라 특별히 보유하여야 할 필요가 있는 경우에는 법령상 기간을 준수하여 보유하고 있습니다.
           </div>
-          <span class="app__field__helper" style="margin-left: auto; margin-top: 10px; float: right; margin-right: 0;">
+          <span class="app__field__helper" style="margin-left: auto; margin-top: 10px; float: right; margin-right: -33px;">
             크리에이터 지원 버튼을 누를 경우 상기 개인정보 수집 약관에 동의한 것으로 간주합니다.
           </span>
         </div>
@@ -403,7 +418,8 @@ export default {
 
 .app {
   &__title {
-    height: 16rem;
+    height: 24rem;
+    margin-left: -60px;
   }
 
   &__logo {
@@ -481,6 +497,7 @@ export default {
     width: fit-content;
     display: flex;
     justify-content: space-between;
+    margin-top: -20px;
   }
 }
 
@@ -495,7 +512,7 @@ export default {
   padding: 10rem;
   box-sizing: border-box;
   background-color: #ffffff;
-  margin-top: 200px;
+  margin-top: 170px;
 
   &-small {
     width: 100%;

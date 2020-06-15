@@ -3,7 +3,7 @@
     class="button"
     @click="onClick"
   >
-    <span style="margin-left: auto;"><slot /></span>
+    <span style="margin-left: auto; font-weight: bold;"><slot /></span>
     <div class="button__arrow">></div>
   </div>
 </template>
@@ -26,7 +26,7 @@ export default {
   align-items: center;
   font-size: 1.2rem;
   width: 180px;
-  padding: 4px 7px;
+  padding: 10px 7px;
   padding-right: 0;
   box-shadow:
     0 10px 16px 0 rgba(0,0,0,0.2),
@@ -37,7 +37,7 @@ export default {
 
   &__arrow {
     margin-left: 5px;
-    height: 2rem;
+    height: calc(2rem + 10px);
     font-size: 1.2rem;
     padding: 5px;
     display: flex;
