@@ -211,6 +211,9 @@ export default {
             class="app__field__input"
             placeholder="전화번호를 작성해 주세요."
           />
+          <span class="app__field__helper">
+            * 연락 가능한 전화번호 또는 핸드폰 번호를 작성해 주세요.
+          </span>
         </div>
 
         <div class="app__field">
