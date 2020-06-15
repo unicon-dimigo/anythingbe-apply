@@ -25,8 +25,8 @@ export default {
 </template>
 
 <style lang="scss">
-@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
-* { font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif'; }
+@import url(//cdn.jsdelivr.net/npm/font-kopub@1.0/kopubdotum.min.css);
+* { font-family: 'KoPub Dotum', 'Sans-serif'; }
 .kakao-button {
   width: 55px;
   height: 55px;
@@ -47,5 +47,15 @@ export default {
     height: 100px;
     width: 100px;
   }
+}
+
+input[type=checkbox] {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #bcbcbc;
+  cursor: pointer;
+  background: rgb(255,41,108);
+  background: linear-gradient(90deg, rgba(255,41,108,1) 0%, rgba(255,159,43,1) 100%);
 }
 </style>

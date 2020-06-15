@@ -22,7 +22,7 @@ export default {
     return {
       form: {
         name: '',
-        gender: '',
+        gender: '남자',
         birth: {
           year: null,
           month: null,
@@ -130,15 +130,36 @@ export default {
             placeholder="실명을 작성해 주세요."
             style="width: 50%;"
           />
-          <input type="radio" id="male" name="gender" value="남자" style="margin-left: 5px;" v-model="form.gender">
-          <label for="male">남자</label>
 
-          <input type="radio" id="female" name="gender" value="여자" style="margin-left: 5px;" v-model="form.gender">
-          <label for="female">여자</label>
+          <label @click="form.gender = '남자'">남</label>
+          <div
+            @click="form.gender = '남자'"
+            :style="{
+              display: 'inline-block',
+              margin: '0 5px',
+              width: '15px',
+              height: '15px',
+              background: form.gender === '여자' ? 'white' : 'linear-gradient(90deg, rgba(255,41,108,1) 0%, rgba(255,159,43,1) 100%)',
+              border: '1px solid #bbbbbb'
+            }"
+          />
+
+          <label @click="form.gender = '여자'">여</label>
+          <div
+            @click="form.gender = '여자'"
+            :style="{
+              display: 'inline-block',
+              margin: '0 5px',
+              width: '15px',
+              height: '15px',
+              background: form.gender === '남자' ? 'white' : 'linear-gradient(90deg, rgba(255,41,108,1) 0%, rgba(255,159,43,1) 100%)',
+              border: '1px solid #bbbbbb'
+            }"
+          />
         </div>
 
         <div class="app__field">
-          <span class="app__field__label">생년원일</span>
+          <span class="app__field__label">생년월일</span>
           <input
             v-model="form.birth.year"
             class="app__field__input"
@@ -183,13 +204,12 @@ export default {
         <div class="app__field">
           <span class="app__field__label">전화번호</span>
           <input
+            @input="form.phone = form.phone.replace('-', '')"
             v-model="form.phone"
             class="app__field__input"
             placeholder="전화번호를 작성해 주세요."
           />
-          <span class="app__field__helper">
-            * 연락 가능한 전화번호 또는 핸드폰 번호를 작성해 주세요.
-          </span>
+          f
         </div>
 
         <div class="app__field">
@@ -215,29 +235,6 @@ export default {
         <div class="app__field" />
 
         <div class="app__field">
-          <span class="app__field__label">YouTube 외에 추가로 운영 중인 플랫폼</span>
-          <div class="platform__list">
-            <div
-              class="platform__item"
-              :key="`p-${index}`"
-              v-for="(platform, index) in Object.keys(form.platform)"
-            >
-              <input
-                type="checkbox"
-                @click="toggle(platform)"
-              >
-              <span>{{ platform }}</span>
-              <input
-                v-show="form.platform[platform] !== false"
-                v-model="form.platform[platform]"
-                placeholder="운영 중인 플랫폼 URL을 작성해 주세요"
-                style="margin-left: 15px; width: 230px"
-              >
-            </div>
-          </div>
-        </div>
-
-        <div class="app__field">
           <span class="app__field__label">채널 카테고리</span>
           <div class="platform__list">
             <div style="display: flex;">
@@ -246,11 +243,18 @@ export default {
                 :key="`c-${index}`"
                 v-for="(category, index) in Object.keys(form.category).splice(0, 4)"
               >
-                <input
-                  v-model="form.category[category]"
-                  type="checkbox"
-                >
                 <span style="margin: 0 5px;">{{ koreanCategory(category) }}</span>
+                <div
+                  @click="form.category[category] = !form.category[category]"
+                  :style="{
+                    display: 'inline-block',
+                    'margin-right': '4px',
+                    width: '15px',
+                    height: '15px',
+                    background: form.category[category] === false ? 'white' : 'linear-gradient(90deg, rgba(255,41,108,1) 0%, rgba(255,159,43,1) 100%)',
+                    border: '1px solid #bbbbbb'
+                  }"
+                />
               </div>
             </div>
 
@@ -260,21 +264,69 @@ export default {
                 :key="`c-${index}`"
                 v-for="(category, index) in Object.keys(form.category).splice(4, 2)"
               >
-                <input
-                  v-model="form.category[category]"
-                  type="checkbox"
-                >
                 <span style="margin: 0 5px;">{{ koreanCategory(category) }}</span>
+                <div
+                  @click="form.category[category] = !form.category[category]"
+                  :style="{
+                    display: 'inline-block',
+                    'margin-right': '4px',
+                    width: '15px',
+                    height: '15px',
+                    background: form.category[category] === false ? 'white' : 'linear-gradient(90deg, rgba(255,41,108,1) 0%, rgba(255,159,43,1) 100%)',
+                    border: '1px solid #bbbbbb'
+                  }"
+                />
               </div>
               <div class="platform__item">
-                <input
-                  v-model="etcTemp"
-                  type="checkbox"
-                  v-show="!etcTemp"
-                >
                 <span style="margin: 0 5px;">기타</span>
+                <div
+                  v-show="!etcTemp"
+                  @click="etcTemp = !etcTemp"
+                  :style="{
+                    display: 'inline-block',
+                    'margin-right': '4px',
+                    width: '15px',
+                    height: '15px',
+                    background: etcTemp === false ? 'white' : 'linear-gradient(90deg, rgba(255,41,108,1) 0%, rgba(255,159,43,1) 100%)',
+                    border: '1px solid #bbbbbb'
+                  }"
+                />
                 <input v-show="etcTemp" v-model="form.category.etc" style="width: 70px;">
               </div>
+            </div>
+
+            <span class="app__field__helper">
+              운영하고 있는 채널의<br>주요 카테고리를 선택해 주세요. (중복 허용)
+            </span>
+          </div>
+        </div>
+
+        <div class="app__field">
+          <span class="app__field__label">YouTube 외에 추가로 운영 중인 플랫폼</span>
+          <div class="platform__list">
+            <div
+              class="platform__item"
+              :key="`p-${index}`"
+              v-for="(platform, index) in Object.keys(form.platform)"
+            >
+              <div
+                @click="toggle(platform)"
+                :style="{
+                  display: 'inline-block',
+                  'margin-right': '4px',
+                  width: '15px',
+                  height: '15px',
+                  background: form.platform[platform] === false ? 'white' : 'linear-gradient(90deg, rgba(255,41,108,1) 0%, rgba(255,159,43,1) 100%)',
+                  border: '1px solid #bbbbbb'
+                }"
+              />
+              <span>{{ platform }}</span>
+              <input
+                v-show="form.platform[platform] !== false"
+                v-model="form.platform[platform]"
+                placeholder="운영 중인 플랫폼 URL을 작성해 주세요"
+                style="margin-left: 15px; width: 230px"
+              >
             </div>
           </div>
         </div>
@@ -470,11 +522,11 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     box-shadow:
-      0 10px 16px 0 rgba(0,0,0,0.2),
-      0 6px 20px 0 rgba(0,0,0,0.19) !important;
-    padding: 10px;
+      0 5px 8px 0 rgba(0,0,0,0.2),
+      0 3px 10px 0 rgba(0,0,0,0.19) !important;
+    padding: 15px;
     margin-bottom: 30px;
     cursor: pointer;
     outline: none;
