@@ -22,7 +22,12 @@ export default {
     return {
       form: {
         name: '',
-        birth: null,
+        gender: '',
+        birth: {
+          year: null,
+          month: null,
+          day: null
+        },
         email: null,
         phone: null,
         youtubeId: '',
@@ -123,16 +128,46 @@ export default {
             v-model="form.name"
             class="app__field__input"
             placeholder="실명을 작성해 주세요."
+            style="width: 50%;"
           />
+          <input type="radio" id="male" name="gender" value="남자" style="margin-left: 5px;" v-model="form.gender">
+          <label for="male">남자</label>
+
+          <input type="radio" id="female" name="gender" value="여자" style="margin-left: 5px;" v-model="form.gender">
+          <label for="female">여자</label>
         </div>
 
         <div class="app__field">
           <span class="app__field__label">생년원일</span>
           <input
-            v-model="form.birth"
+            v-model="form.birth.year"
             class="app__field__input"
-            type="date"
+            type="number"
+            style="width: 50px;"
+            min="1900"
+            max="2020"
           >
+          년
+
+          <input
+            v-model="form.birth.month"
+            class="app__field__input"
+            type="number"
+            style="width: 50px;"
+            min="1"
+            max="12"
+          >
+          월
+
+          <input
+            v-model="form.birth.day"
+            class="app__field__input"
+            type="number"
+            style="width: 50px;"
+            min="1"
+            max="31"
+          >
+          일
         </div>
 
         <div class="app__field">
@@ -302,7 +337,7 @@ export default {
 
       <div style="margin-left: auto; display: flex;">
         <div style="display: flex; flex-direction: column; margin-right: 10px; color: gray;">
-          <span>Business contact</span>
+          <span style="font-weight: bold;">Business contact</span>
           <span>partnership.anythingbe@gmail.com</span>
         </div>
         <img style="height: 50px;" src="../assets/flogo.png">
