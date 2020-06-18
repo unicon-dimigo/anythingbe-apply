@@ -27,6 +27,7 @@ export default {
 <style lang="scss">
 @import url(//cdn.jsdelivr.net/npm/font-kopub@1.0/kopubdotum.min.css);
 * { font-family: 'KoPub Dotum', 'Sans-serif'; }
+#app { width: 100vw; }
 .kakao-button {
   width: 55px;
   height: 55px;
@@ -42,6 +43,7 @@ export default {
   box-shadow:
     0 10px 16px 0 rgba(0,0,0,0.2),
     0 6px 20px 0 rgba(0,0,0,0.19);
+  margin-right: 10px;
 
   &__logo {
     height: 100px;

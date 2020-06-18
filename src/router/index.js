@@ -10,6 +10,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "Application" */ '../views/Application.vue')
   },
   {
+    path: '/m',
+    name: 'Application-Mobile',
+    component: () => import(/* webpackChunkName: "Application-Mobile" */ '../views/MobileApplication.vue')
+  },
+  {
     path: '/success',
     name: 'Success',
     component: () => import(/* webpackChunkName: "Success" */ '../views/Success.vue')

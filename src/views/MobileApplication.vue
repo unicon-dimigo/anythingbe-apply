@@ -1,7 +1,7 @@
 <script>
 import axios from 'axios'
 import * as firebase from 'firebase'
-import TopButton from '../components/TopButton.vue'
+import MTopButton from '../components/MTopButton.vue'
 import YoutubeProfile from '../components/YoutubeProfile.vue'
 const app = firebase.initializeApp({
   apiKey: 'AIzaSyAEHtOGwMS8TW-J66WcTGxEdXYs9tLQTBc',
@@ -17,13 +17,7 @@ const database = app.database()
 
 export default {
   name: 'app',
-  components: { TopButton, YoutubeProfile },
-  created () {
-    const { innerHeight: width } = window
-    if (width < 1000) {
-      window.location = '/apply/m'
-    }
-  },
+  components: { MTopButton, YoutubeProfile },
   data () {
     return {
       agree: false,
@@ -141,16 +135,16 @@ export default {
     <img class="app__title" src="../assets/Title.svg">
     <img class="app__logo" src="../assets/Logo.svg">
     <div class="app__button-wrapper">
-      <top-button
+      <m-top-button
         @click="openLink('https://www.notion.so/anythingbe-031b835a02f34500a3c033c9b4f9808f')"
       >
         ANYTHING BE?
-      </top-button>
-      <top-button
+      </m-top-button>
+      <m-top-button
         @click="openLink('https://www.notion.so/anythingBE-Q-A-5769d50ae405452799e07a0f1400ce10')"
       >
         QnA
-      </top-button>
+      </m-top-button>
     </div>
     <div class="form">
       <div class="form-small">
@@ -286,8 +280,6 @@ export default {
           </span>
         </div>
 
-        <div class="app__field" />
-
         <div class="app__field">
           <span class="app__field__label">채널 카테고리</span>
           <div class="platform__list">
@@ -398,9 +390,7 @@ export default {
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="form-big">
         <div class="app__field">
           <span class="app__field__label">자기소개</span>
           <textarea
@@ -436,6 +426,7 @@ export default {
                 'margin-left': 'auto',
                 display: 'inline-block',
                 margin: '0 5px',
+                'margin-right': '30px',
                 width: '15px',
                 height: '15px',
                 background: !agree ? 'white' : 'linear-gradient(90deg, rgba(255,41,108,1) 0%, rgba(255,159,43,1) 100%)',
@@ -444,56 +435,56 @@ export default {
             />
           </div>
         </div>
-
-        <button
-          @click="submit"
-          class="app__field__button"
-        >
-          크리에이터 지원하기
-        </button>
       </div>
+
+      <button
+        @click="submit"
+        class="app__field__button"
+      >
+        크리에이터 지원하기
+      </button>
     </div>
 
-    <div style="margin: 50px 0; display: flex;">
-      <div style="width: 400px; display: flex;">
-        <top-button
-          @click="openLink('https://www.notion.so/anythingbe-031b835a02f34500a3c033c9b4f9808f')"
-        >
-          ANYTHING BE?
-        </top-button>
-        <top-button
-          @click="openLink('https://www.notion.so/anythingBE-Q-A-5769d50ae405452799e07a0f1400ce10')"
-        >
-          QnA
-        </top-button>
-      </div>
-
-      <div style="margin-left: auto; display: flex;">
-        <div style="display: flex; flex-direction: column; margin-right: 10px; color: gray;">
-          <span style="font-weight: bold;">Business contact</span>
-          <span>partnership.anythingbe@gmail.com</span>
-        </div>
-        <img style="height: 50px;" src="../assets/flogo.png">
-      </div>
+    <div style="width: 400px; display: flex; margin-top: 30px;">
+      <m-top-button
+        @click="openLink('https://www.notion.so/anythingbe-031b835a02f34500a3c033c9b4f9808f')"
+      >
+        ANYTHING BE?
+      </m-top-button>
+      <m-top-button
+        @click="openLink('https://www.notion.so/anythingBE-Q-A-5769d50ae405452799e07a0f1400ce10')"
+      >
+        QnA
+      </m-top-button>
     </div>
+    <div class="display: block" />
+
+    <div style="display: flex; flex-direction: column; margin-right: 10px; margin: 20px 0; color: gray;">
+      <span style="font-weight: bold;">Business contact</span>
+      <span>partnership.anythingbe@gmail.com</span>
+    </div>
+    <img style="height: 50px;" src="../assets/flogo.png">
   </div>
 </template>
 
 <style lang="scss" scoped>
-.container { margin: 20px 200px; }
+.container {
+  margin: 20px 10px;
+  min-height: 100vh;
+  width: 100vw;
+}
 
 .app {
   &__title {
-    height: 23.7rem;
-    margin-left: -60px;
+    height: 10.7rem;
   }
 
   &__logo {
     position: absolute;
     z-index: -1;
-    height: 1000px;
-    top: -250px;
-    right: 0;
+    height: 100px;
+    right: 30px;
+    top: 7px;
   }
 
   &__field {
@@ -526,7 +517,7 @@ export default {
       outline: none;
 
       &-tf {
-        width: 100%;
+        width: calc(100% - 40px);
         height: 250px;
         padding: 20px;
         outline: none;
@@ -551,7 +542,7 @@ export default {
       border-radius: 30px;
       border: 0;
       padding: 20px;
-      width: 100%;
+      width: calc(100% - 40px);
     }
 
     &__helper {
@@ -569,23 +560,23 @@ export default {
 
 .form {
   z-index: 1;
-  width: 100%;
+  width: calc(100% - 20px);
   box-shadow:
     0 10px 16px 0 rgba(0,0,0,0.2),
     0 6px 20px 0 rgba(0,0,0,0.19) !important;
-  border-radius: 50px;
+  border-radius: 25px;
   min-height: 100vh;
-  padding: 10rem;
+  padding: 20px 10px;
   box-sizing: border-box;
   background-color: #ffffff;
-  margin-top: 170px;
+  margin-top: 30px;
 
   &-small {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    gap: 50px 40px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 20px 40px;
     margin-bottom: 20px;
   }
 
