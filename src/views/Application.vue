@@ -20,6 +20,7 @@ export default {
   components: { TopButton, YoutubeProfile },
   data () {
     return {
+      agree: false,
       form: {
         name: '',
         gender: '남자',
@@ -87,10 +88,14 @@ export default {
       }[category]
     },
     async submit () {
+      if (!this.agree) {
+        alert('개인정보 처리 방침에 동의하여야 지원이 가능합니다.')
+        return
+      }
       await database
         .ref(`forms/${this.form.name}-${this.form.youtubeId}`)
         .set(this.form)
-      alert('접수가 정상적으로 완료되었습니다.')
+      this.$router.push('/success')
     },
     openLink (link) {
       window.open(link)
@@ -99,6 +104,27 @@ export default {
   computed: {
     youtubeLink () {
       return `https://www.youtube.com/channel/${this.form.youtubeId}`
+    },
+    years () {
+      let years = []
+      for (let i = 1950; i <= 2018; ++i) {
+        years = [...years, i]
+      }
+      return years
+    },
+    months () {
+      let months = []
+      for (let i = 1; i <= 12; ++i) {
+        months = [...months, i]
+      }
+      return months
+    },
+    days () {
+      let days = []
+      for (let i = 1; i <= 31; ++i) {
+        days = [...days, i]
+      }
+      return days
     }
   }
 }
@@ -132,7 +158,7 @@ export default {
               style="width: 50%;"
             />
 
-            <label @click="form.gender = '남자'" style="margin-left: 5px;">남</label>
+            <label @click="form.gender = '남자'" style="margin-left: 20px;">남</label>
             <div
               @click="form.gender = '남자'"
               :style="{
@@ -162,34 +188,52 @@ export default {
 
         <div class="app__field">
           <span class="app__field__label">생년월일</span>
-          <input
+          <select
+            name="year"
             v-model="form.birth.year"
             class="app__field__input"
-            type="number"
-            style="width: 50px;"
-            min="1900"
-            max="2020"
+            style="width: unset;"
           >
+            <option
+              :value="year"
+              :key="year"
+              v-for="year in years"
+            >
+              {{ year }}
+            </option>
+          </select>
           년
 
-          <input
+          <select
+            name="month"
             v-model="form.birth.month"
             class="app__field__input"
-            type="number"
-            style="width: 50px;"
-            min="1"
-            max="12"
+            style="width: unset;"
           >
+            <option
+              :value="month"
+              :key="month"
+              v-for="month in months"
+            >
+              {{ month }}
+            </option>
+          </select>
           월
 
-          <input
+          <select
+            name="month"
             v-model="form.birth.day"
             class="app__field__input"
-            type="number"
-            style="width: 50px;"
-            min="1"
-            max="31"
+            style="width: unset;"
           >
+            <option
+              :value="day"
+              :key="day"
+              v-for="day in days"
+            >
+              {{ day }}
+            </option>
+          </select>
           일
         </div>
 
@@ -313,7 +357,7 @@ export default {
             </div>
 
             <span class="app__field__helper">
-              운영하고 있는 채널의<br>주요 카테고리를 선택해 주세요. (중복 허용)
+              운영하고 있는 채널의 주요 카테고리를 해당되는 대로 선택해 주세요.
             </span>
           </div>
         </div>
@@ -331,8 +375,8 @@ export default {
               <div
                 @click="toggle(platform)"
                 :style="{
-                  display: 'inline-block',
                   'margin-right': '4px',
+                  display: 'inline-block',
                   width: '15px',
                   height: '15px',
                   background: form.platform[platform] === false ? 'white' : 'linear-gradient(90deg, rgba(255,41,108,1) 0%, rgba(255,159,43,1) 100%)',
@@ -356,6 +400,7 @@ export default {
           <textarea
             class="app__field__input app__field__input-tf"
             placeholder="anythingBE 가입을 위한 자기소개서를 자유롭게 입력해 주세요. (500자 내외)"
+            style="resize: none;"
           />
         </div>
 
@@ -377,9 +422,21 @@ export default {
             4. 개인정보의 파기<br>
             회사는 지원자가 개인정보 수집 및 이용에 동의한 날로부터 1년간 개인정보를 보유합니다. 위 1년의 기간은 크리에이터 지원자의 지원 의사 확인 및 심사, 모니터링을 위한 기간입니다. 또한 회사는 개인정보보호법령 등에 따라 특별히 보유하여야 할 필요가 있는 경우에는 법령상 기간을 준수하여 보유하고 있습니다.
           </div>
-          <span class="app__field__helper" style="margin-left: auto; margin-top: 10px; float: right; margin-right: -33px;">
-            크리에이터 지원 버튼을 누를 경우 상기 개인정보 수집 약관에 동의한 것으로 간주합니다.
-          </span>
+          <div class="app__field__helper" style="margin-left: auto; margin-top: 20px; float: right; margin-right: -33px; display: flex; align-items: center; width: 100%;">
+            <span style="margin-left: auto;">상기 개인정보 수집 약관에 동의합니다.</span>
+            <div
+              @click="agree = !agree"
+              :style="{
+                'margin-left': 'auto',
+                display: 'inline-block',
+                margin: '0 5px',
+                width: '15px',
+                height: '15px',
+                background: !agree ? 'white' : 'linear-gradient(90deg, rgba(255,41,108,1) 0%, rgba(255,159,43,1) 100%)',
+                border: '1px solid #bbbbbb'
+              }"
+            />
+          </div>
         </div>
 
         <button
