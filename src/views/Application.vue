@@ -21,7 +21,7 @@ export default {
   created () {
     const { innerHeight: width } = window
     if (width < 1000) {
-      window.location = '/apply/m'
+      this.$router.push('/m')
     }
   },
   data () {

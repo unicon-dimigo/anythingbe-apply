@@ -575,7 +575,7 @@ export default {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 0.7fr 0.7fr 0.7fr 0.7fr 0.7fr 0.7fr;
     gap: 20px 40px;
     margin-bottom: 20px;
   }
