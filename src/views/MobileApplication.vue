@@ -141,6 +141,7 @@ export default {
         ANYTHING BE?
       </m-top-button>
       <m-top-button
+        style="margin-right: 0;"
         @click="openLink('https://www.notion.so/anythingBE-Q-A-5769d50ae405452799e07a0f1400ce10')"
       >
         QnA
@@ -437,21 +438,24 @@ export default {
         </div>
       </div>
 
-      <button
-        @click="submit"
-        class="app__field__button"
-      >
-        크리에이터 지원하기
-      </button>
+      <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
+        <button
+          @click="submit"
+          class="app__field__button"
+        >
+          크리에이터 지원하기
+        </button>
+      </div>
     </div>
 
-    <div style="width: 400px; display: flex; margin-top: 30px;">
+    <div style="width: max-content; display: flex; margin-top: 30px;">
       <m-top-button
         @click="openLink('https://www.notion.so/anythingbe-031b835a02f34500a3c033c9b4f9808f')"
       >
         ANYTHING BE?
       </m-top-button>
       <m-top-button
+        style="margin-right: 0;"
         @click="openLink('https://www.notion.so/anythingBE-Q-A-5769d50ae405452799e07a0f1400ce10')"
       >
         QnA
@@ -471,12 +475,12 @@ export default {
 .container {
   margin: 20px 10px;
   min-height: 100vh;
-  width: 100vw;
+  width: calc(100vw - 10px);
 }
 
 .app {
   &__title {
-    height: 10.7rem;
+    height: 10rem;
   }
 
   &__logo {
@@ -566,7 +570,8 @@ export default {
     0 6px 20px 0 rgba(0,0,0,0.19) !important;
   border-radius: 25px;
   min-height: 100vh;
-  padding: 20px 10px;
+  padding: 20px ;
+  margin-right: 0;
   box-sizing: border-box;
   background-color: #ffffff;
   margin-top: 30px;
