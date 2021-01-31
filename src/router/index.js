@@ -10,8 +10,9 @@ const routes = [
     beforeEnter (from, to, next) {
       const { innerWidth: width } = window
       if (width < 1000) next('/m')
+      next()
     },
-    component: () => import(/* webpackChunkName: "Application" */ '../views/Application.vue')
+    component: () => import('../views/Application.vue')
   },
   {
     path: '/m',
@@ -26,6 +27,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   base: process.env.BASE_URL,
   routes
 })
