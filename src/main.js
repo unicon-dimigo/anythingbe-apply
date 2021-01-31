@@ -2,12 +2,12 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import GAuth from 'vue-google-oauth2'
+// import GAuth from 'vue-google-oauth2'
 
-Vue.use(GAuth, {
-  clientId: '824660339822-eobgr5cp36cu2hbs38s2u5t7ti1hsbq1.apps.googleusercontent.com',
-  scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/youtube.readonly'
-})
+// Vue.use(GAuth, {
+//   clientId: '824660339822-eobgr5cp36cu2hbs38s2u5t7ti1hsbq1.apps.googleusercontent.com',
+//   scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/youtube.readonly'
+// })
 
 Vue.config.productionTip = false
 

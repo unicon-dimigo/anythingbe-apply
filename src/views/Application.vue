@@ -1,19 +1,19 @@
 <script>
-import axios from 'axios'
-import * as firebase from 'firebase'
+// import axios from 'axios'
+// import * as firebase from 'firebase'
 import TopButton from '../components/TopButton.vue'
 import YoutubeProfile from '../components/YoutubeProfile.vue'
-const app = firebase.initializeApp({
-  apiKey: 'AIzaSyAEHtOGwMS8TW-J66WcTGxEdXYs9tLQTBc',
-  authDomain: 'anythingbe-b7762.firebaseapp.com',
-  databaseURL: 'https://anythingbe-b7762.firebaseio.com',
-  projectId: 'anythingbe-b7762',
-  storageBucket: 'anythingbe-b7762.appspot.com',
-  messagingSenderId: '303973701796',
-  appId: '1:303973701796:web:d833a37596fad8d7c06e31',
-  measurementId: 'G-9MNLXZBJDH'
-})
-const database = app.database()
+// const app = firebase.initializeApp({
+//   apiKey: 'AIzaSyAEHtOGwMS8TW-J66WcTGxEdXYs9tLQTBc',
+//   authDomain: 'anythingbe-b7762.firebaseapp.com',
+//   databaseURL: 'https://anythingbe-b7762.firebaseio.com',
+//   projectId: 'anythingbe-b7762',
+//   storageBucket: 'anythingbe-b7762.appspot.com',
+//   messagingSenderId: '303973701796',
+//   appId: '1:303973701796:web:d833a37596fad8d7c06e31',
+//   measurementId: 'G-9MNLXZBJDH'
+// })
+// const database = app.database()
 
 export default {
   name: 'app',
@@ -66,14 +66,14 @@ export default {
   },
   methods: {
     async signInGoogle () {
-      const googleUser = await this.$gAuth.signIn()
-      const { access_token: accessToken } = googleUser.wc
-      const url = `https://www.googleapis.com/youtube/v3/channels/?mine=true&part=id,snippet,statistics&access_token=${accessToken}`
-      const { data } = await axios.get(url)
-      this.form.youtubeId = data.items[0].id
-      this.channel.title = data.items[0].snippet.title
-      this.channel.thumbnail = data.items[0].snippet.thumbnails.default.url
-      this.channel.subscribers = data.items[0].statistics.subscriberCount
+      // const googleUser = await this.$gAuth.signIn()
+      // const { access_token: accessToken } = googleUser.wc
+      // const url = `https://www.googleapis.com/youtube/v3/channels/?mine=true&part=id,snippet,statistics&access_token=${accessToken}`
+      // const { data } = await axios.get(url)
+      // this.form.youtubeId = data.items[0].id
+      // this.channel.title = data.items[0].snippet.title
+      // this.channel.thumbnail = data.items[0].snippet.thumbnails.default.url
+      // this.channel.subscribers = data.items[0].statistics.subscriberCount
     },
     toggle (platform) {
       if (this.form.platform[platform] === false) {
@@ -98,9 +98,9 @@ export default {
         alert('개인정보 처리 방침에 동의하여야 지원이 가능합니다.')
         return
       }
-      await database
-        .ref(`forms/${this.form.name}-${this.form.youtubeId}`)
-        .set(this.form)
+      // await database
+      //   .ref(`forms/${this.form.name}-${this.form.youtubeId}`)
+      //   .set(this.form)
       this.$router.push('/success')
     },
     openLink (link) {
