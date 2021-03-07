@@ -2,7 +2,6 @@
 import axios from 'axios'
 import * as firebase from 'firebase'
 import TopButton from '../components/TopButton.vue'
-import YoutubeProfile from '../components/YoutubeProfile.vue'
 const app = firebase.initializeApp({
   apiKey: 'AIzaSyAEHtOGwMS8TW-J66WcTGxEdXYs9tLQTBc',
   authDomain: 'anythingbe-b7762.firebaseapp.com',
@@ -17,7 +16,7 @@ const database = app.database()
 
 export default {
   name: 'App',
-  components: { TopButton, YoutubeProfile },
+  components: { TopButton },
   data () {
     return {
       agree: false,
@@ -42,6 +41,7 @@ export default {
           etc: null
         },
         platform: {
+          youtube: '',
           twitch: false,
           africa: false,
           facebook: false,
@@ -95,7 +95,7 @@ export default {
       await database
         .ref(`forms/${this.form.name}-${this.form.youtubeId}`)
         .set(this.form)
-      this.$router.push('/success')
+      alert('신청 완료')
     },
     openLink (link) {
       window.open(link)
@@ -136,7 +136,7 @@ export default {
     <img class="app__logo" src="../assets/Logo.svg">
     <div class="app__button-wrapper">
       <top-button
-        @click="openLink('https://www.notion.so/anythingbe-031b835a02f34500a3c033c9b4f9808f')"
+        @click="openLink('https://www.notion.so/uhmseohun/ANYTHINGBE-df9156b9c50a4244b82faa17b3659f75')"
       >
         ANYTHING BE?
       </top-button>
@@ -261,29 +261,7 @@ export default {
         </div>
 
         <div class="app__field">
-          <span class="app__field__label">유튜브 운영 채널</span>
-          <div v-if="form.youtubeId === ''">
-            <button
-              class="google__button"
-              @click="signInGoogle"
-            >
-              <img class="google__logo" src="../assets/google.png">
-              Sign in with Google
-            </button>
-            <span class="app__field__helper">
-              * 구글 계정을 통하여 채널 확인이 이루어집니다.<br>
-              해당 정보는 본인 채널 여부 및 기타 지표 확인을 위하여 사용되며, 자동 가입 등의 절차로 연결되지 않습니다.
-            </span>
-          </div>
-          <span v-else>
-            <youtube-profile :profile="channel" />
-          </span>
-        </div>
-
-        <div class="app__field" />
-
-        <div class="app__field">
-          <span class="app__field__label">채널 카테고리</span>
+          <span class="app__field__label">유튜브 채널 카테고리</span>
           <div class="platform__list">
             <div style="display: flex;">
               <div
@@ -363,7 +341,7 @@ export default {
         </div>
 
         <div class="app__field">
-          <span class="app__field__label">YouTube 외 추가로 운영 중인 플랫폼</span>
+          <span class="app__field__label">운영 중인 플랫폼</span>
           <div class="platform__list">
             <div
               class="platform__item"
@@ -451,7 +429,7 @@ export default {
     <div style="margin: 50px 0; display: flex;">
       <div style="width: 400px; display: flex;">
         <top-button
-          @click="openLink('https://www.notion.so/anythingbe-031b835a02f34500a3c033c9b4f9808f')"
+          @click="openLink('https://www.notion.so/uhmseohun/ANYTHINGBE-df9156b9c50a4244b82faa17b3659f75')"
         >
           ANYTHING BE?
         </top-button>

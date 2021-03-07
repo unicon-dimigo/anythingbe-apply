@@ -136,7 +136,7 @@ export default {
     <img class="app__logo" src="../assets/Logo.svg">
     <div class="app__button-wrapper">
       <m-top-button
-        @click="openLink('https://www.notion.so/anythingbe-031b835a02f34500a3c033c9b4f9808f')"
+        @click="openLink('https://www.notion.so/uhmseohun/ANYTHINGBE-df9156b9c50a4244b82faa17b3659f75')"
       >
         ANYTHING BE?
       </m-top-button>
@@ -450,7 +450,7 @@ export default {
 
     <div style="width: max-content; display: flex; margin-top: 30px;">
       <m-top-button
-        @click="openLink('https://www.notion.so/anythingbe-031b835a02f34500a3c033c9b4f9808f')"
+        @click="openLink('https://www.notion.so/uhmseohun/ANYTHINGBE-df9156b9c50a4244b82faa17b3659f75')"
       >
         ANYTHING BE?
       </m-top-button>
